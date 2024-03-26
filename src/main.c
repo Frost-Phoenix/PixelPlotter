@@ -16,7 +16,13 @@ int main() {
         WIN_HEIGHT * SCALE,
         SDL_WINDOW_SHOWN
     );
-    pplotter_loop(&p);
+
+    while (p.running) {
+        pplotter_poll_events(&p);
+        pplotter_update(&p);
+        pplotter_render(&p);
+    }
+
     pplotter_quit(&p);
 
     return 0;

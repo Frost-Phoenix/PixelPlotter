@@ -22,7 +22,11 @@ typedef struct pplotter {
 void pplotter_init(pplotter* p, const char* title, int x, int y, int w, int h, Uint32 flags);
 void pplotter_quit(pplotter* p);
 
-void pplotter_loop(pplotter* p);
+void pplotter_set_pixel(pplotter* p, int x, int y, uint8_t r, uint8_t g, uint8_t b);
+
+void pplotter_poll_events(pplotter* p);
+void pplotter_update(pplotter* p);
+void pplotter_render(pplotter* p);
 
 
 #endif /* PPLOTTER_H */
