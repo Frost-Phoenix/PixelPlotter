@@ -12,6 +12,7 @@ endif
 
 CC := gcc
 CFLAGS := -std=$(CSTD) -Wall -Wextra
+LIBS   = -lSDL2
 DEBUG_FLAGS := -fsanitize=address,undefined
 
 TARGET := app
@@ -22,7 +23,7 @@ all: debug
 
 # Build rule
 $(BIN_DIR)/$(TARGET): $(OBJ_FILES)
-	$(CC) -I $(INCLUDE_DIR) $(CFLAGS) $^ -o $@
+	$(CC) -I $(INCLUDE_DIR) $(CFLAGS) $^ -o $@ $(LIBS)
 
 # Compile source files
 $(BIN_DIR)/%.o: $(SRC_DIR)/%.c | $(BIN_DIR)
@@ -36,7 +37,7 @@ debug: $(BIN_DIR)/$(TARGET)
 
 release: clean $(BIN_DIR)/$(TARGET)
 
-run: debug
+run: $(BIN_DIR)/$(TARGET)
 	$(BIN_DIR)/$(TARGET)
 
 clean:
