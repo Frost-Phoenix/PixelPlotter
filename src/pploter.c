@@ -66,6 +66,14 @@ void pplotter_quit(pplotter_t* p) {
     SDL_Log("Quit");
 }
 
+void pplotter_set_bg_color(pplotter_t* p, uint8_t r, uint8_t g, uint8_t b) {
+    for (size_t i = 0; i < WIN_HEIGHT * WIN_WIDTH * 3; i += 3) {
+        p->buffer[i] = r;
+        p->buffer[i + 1] = g;
+        p->buffer[i + 2] = b;
+    }
+}
+
 int pplotter_set_pixel(pplotter_t* p, int x, int y, uint8_t r, uint8_t g, uint8_t b) {
     if (!(0 <= x && x <= WIN_WIDTH && 0 <= y && y <= WIN_HEIGHT)) {
         SDL_Log("Can't draw pixel at pos %d - %d", x, y);
