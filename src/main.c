@@ -6,7 +6,7 @@
 
 int main() {
 
-    pplotter p;
+    pplotter_t p;
     pplotter_init(
         &p,
         "test",

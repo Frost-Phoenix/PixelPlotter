@@ -12,7 +12,7 @@
   *                 Public functions                   *
   ******************************************************/
 
-void pplotter_init(pplotter* p, const char* title, int x, int y, int w, int h, Uint32 flags) {
+void pplotter_init(pplotter_t* p, const char* title, int x, int y, int w, int h, const Uint32 flags) {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         SDL_Log("[ERROR] Unable to init window: %s", SDL_GetError());
         exit(EXIT_FAILURE);
@@ -56,7 +56,7 @@ void pplotter_init(pplotter* p, const char* title, int x, int y, int w, int h, U
     SDL_Log("Initialized");
 }
 
-void pplotter_quit(pplotter* p) {
+void pplotter_quit(pplotter_t* p) {
     SDL_DestroyWindow(p->win);
     SDL_DestroyRenderer(p->ren);
     SDL_DestroyTexture(p->texture);
@@ -66,7 +66,7 @@ void pplotter_quit(pplotter* p) {
     SDL_Log("Quit");
 }
 
-void pplotter_set_pixel(pplotter* p, int x, int y, uint8_t r, uint8_t g, uint8_t b) {
+void pplotter_set_pixel(pplotter_t* p, int x, int y, uint8_t r, uint8_t g, uint8_t b) {
     int i = (y * WIN_WIDTH + x) * 3;
 
     p->buffer[i] = r;
@@ -74,21 +74,23 @@ void pplotter_set_pixel(pplotter* p, int x, int y, uint8_t r, uint8_t g, uint8_t
     p->buffer[i + 2] = b;
 }
 
-void pplotter_poll_events(pplotter* p) {
+void pplotter_poll_events(pplotter_t* p) {
     while (SDL_PollEvent(&p->event) != 0) {
         switch (p->event.type) {
-            case SDL_QUIT: p->running = false; break;
-
-            default: break;
+            case SDL_QUIT:
+                p->running = false;
+                break;
+            default:
+                break;
         }
     }
 }
 
-void pplotter_update(pplotter* p) {
+void pplotter_update(pplotter_t* p) {
     SDL_UpdateTexture(p->texture, NULL, p->buffer, WIN_WIDTH * 3);
 }
 
-void pplotter_render(pplotter* p) {
+void pplotter_render(pplotter_t* p) {
     SDL_RenderClear(p->ren);
     SDL_RenderCopy(p->ren, p->texture, NULL, NULL);
     SDL_RenderPresent(p->ren);

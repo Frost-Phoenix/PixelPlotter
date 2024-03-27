@@ -16,17 +16,17 @@ typedef struct pplotter {
 
     bool running;
     SDL_Event event;
-} pplotter;
+} pplotter_t;
 
 
-void pplotter_init(pplotter* p, const char* title, int x, int y, int w, int h, Uint32 flags);
-void pplotter_quit(pplotter* p);
+void pplotter_init(pplotter_t* p, const char* title, int x, int y, int w, int h, const Uint32 flags);
+void pplotter_quit(pplotter_t* p);
 
-void pplotter_set_pixel(pplotter* p, int x, int y, uint8_t r, uint8_t g, uint8_t b);
+void pplotter_set_pixel(pplotter_t* p, int x, int y, uint8_t r, uint8_t g, uint8_t b);
 
-void pplotter_poll_events(pplotter* p);
-void pplotter_update(pplotter* p);
-void pplotter_render(pplotter* p);
+void pplotter_poll_events(pplotter_t* p);
+void pplotter_update(pplotter_t* p);
+void pplotter_render(pplotter_t* p);
 
 
 #endif /* PPLOTTER_H */
